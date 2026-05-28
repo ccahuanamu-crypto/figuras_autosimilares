@@ -1,24 +1,5 @@
 #include "../turtlec.h"
 
-int main(void){
-  TurtleApp *app = turtleAppCreate(400, 200, "Test Line");
-
-  if(app == NULL)
-    return 1;
-
-  Turtle *t = turtleAppGetTurtle(app);
-
-  turtlePenUp(t);
-  turtleGoTo(t, 50.0f, 100.0f);
-  turtlePenDown(t);
-
-  turtleSetColor(t, 255, 100, 0);
-  turtleSetSpeed(t, 5.0f);
-  turtleForward(t, 300.0f);
-
-  turtleAppRun(app);
-  turtleAppDestroy(app);
-  return 0;
 
   void fractalTree(Turtle *turtle, float len, int depth){
 	if(depth == 0 || len < 5)
@@ -33,5 +14,26 @@ int main(void){
 
 	turtleLeft(turtle, 30);
 	turtleBackward(turtle, len);
+}
+
+int main(void){
+  TurtleApp *app = turtleAppCreate(800, 800, "Test Line");
+
+  if(app == NULL)
+    return 1;
+
+  Turtle *t = turtleAppGetTurtle(app);
+
+  turtlePenUp(t);
+  turtleGoTo(t, 50.0f, 400.0f);
+  turtlePenDown(t);
+
+  turtleSetColor(t, 255, 100, 0);
+  turtleSetSpeed(t, 5.0f);
+  fractalTree(t, 300, 4);
+
+  turtleAppRun(app);
+  turtleAppDestroy(app);
+  return 0;
 }
 
