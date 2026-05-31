@@ -1,8 +1,8 @@
 #include "../turtlec.h"
+#include <math.h>
 
-
-  void fractalTree(Turtle *turtle, float len, int depth){
-	if(depth == 0 || len < 5)
+void fractalTree(Turtle *turtle, float len, int depth){
+  if(depth == 0 || len < 5)
 	      	return;
 
   if (depth > 5)
@@ -25,6 +25,21 @@
 	turtleBackward(turtle, len);
 }
 
+void levy(Turtle *turtle, float len, int depth){
+  if (depth == 0){
+    turtleForward(turtle, len);
+    return;
+  }
+
+  turtleLeft(turtle, 45);
+  levy(turtle, len / sqrt(2), depth - 1);
+  
+  turtleRight(turtle, 90);
+  levy(turtle, len / sqrt(2), depth - 1);
+
+  turtleLeft(turtle, 45);
+}
+
 int main(void){
   TurtleApp *app = turtleAppCreate(800, 800, "Test Line");
 
@@ -39,6 +54,7 @@ int main(void){
 
   turtleSetSpeed(t, 5.0f);
   fractalTree(t, 300, 4);
+  levy(t, 300, 3);
 
   turtleAppRun(app);
   turtleAppDestroy(app);
